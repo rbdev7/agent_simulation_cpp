@@ -3,6 +3,7 @@
 #include <vector>
 #include "wall.h"
 #include "resource.h"
+#include <agent.h>
 
 class Simulation
 {
@@ -33,7 +34,11 @@ private:
 	const SDL_Colour BLACK = { .r = 0, .g = 0, .b = 0 };
 	const SDL_Colour WHITE = { .r = 255, .g = 255, .b = 255 };
 	int rectSize = 10;
+	int maxAgents = 10;
+	int agentSpeed = 1;
+	float agentForce = 0.4;
 	std::vector<Resource> resources;
+	std::vector<Agent> agents;
 };
 
 

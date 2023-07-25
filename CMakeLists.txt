@@ -23,7 +23,7 @@ include_directories(include)
 # Add source to this project's executable.
 # If the OS is Windows use WIN32 to disable a console window being displayed.
 if(WIN32)
-	add_executable (agent_simulation WIN32 "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp")
+	add_executable (agent_simulation WIN32 "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp" "include/agent.h" "src/agent.cpp" "include/helper.h" "src/helper.cpp")
 else()
 	add_executable (agent_simulation "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp")
 endif()

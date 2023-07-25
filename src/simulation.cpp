@@ -13,6 +13,11 @@ Simulation::Simulation(int width, int height) : _height(height), _width(width)
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
 	SDL_RenderClear(_renderer);
 	SDL_RenderPresent(_renderer);
+
+	for (int i = 0; i < 10; i++)
+	{
+		agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = rectSize, .h = rectSize }, YELLOW, agentSpeed, agentForce, "wander", "grazer",Vec2() = {.x = (float)_width, .y = (float)_height}));
+	}
 }
 
 Simulation::~Simulation()
@@ -77,7 +82,7 @@ void Simulation::Run()
 	
 	while (1)
 	{
-		SDL_Delay(16);
+		SDL_Delay(100);
 		SDL_PollEvent(&event);
 
 		if (event.type == SDL_QUIT)
@@ -89,6 +94,13 @@ void Simulation::Run()
 		}
 		
 		clear();
+
+		// Agents
+		for (Agent agent : agents)
+		{
+			agent.update();
+			draw_rect(agent.rect.x, agent.rect.y, agent.rect.w, agent.rect.h, agent.colour);
+		}
 		
 		draw_rect(10, 10, 50, 50, RED);
 		//draw_rect(wall.rect, wall.colour);
