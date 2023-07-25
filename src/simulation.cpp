@@ -1,9 +1,13 @@
 #pragma once
 #include "simulation.h"
 #include "wall.h"
+#include <iostream>
 
 Simulation::Simulation(int width, int height) : _height(height), _width(width)
 {
+	// Seed rng
+	std::srand(unsigned(std::time(0)));
+
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(_width, _height, 0, &_window, &_renderer);
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
@@ -56,6 +60,11 @@ void Simulation::draw_walls(Wall walls[])
 	}
 }
 
+int Simulation::get_random_pos(int lower, int upper)
+{
+	return (std::rand() % upper) + lower;
+}
+
 void Simulation::Run()
 {
 	SDL_Event event;
@@ -84,6 +93,15 @@ void Simulation::Run()
 		draw_rect(10, 10, 50, 50, RED);
 		//draw_rect(wall.rect, wall.colour);
 		draw_walls(walls);
+
+		// Place resource
+		if (resources.size() < 4)
+			resources.push_back(Resource(r = { .x = get_random_pos(0, _width - 10), .y = get_random_pos(0, _height - 10), .w = rectSize, .h = rectSize }, GREEN));
+
+		for (Resource res : resources)
+		{
+			draw_rect(res.rect.x, res.rect.y, res.rect.w, res.rect.h, res.colour);
+		}
 
 		SDL_RenderPresent(_renderer);
 	}

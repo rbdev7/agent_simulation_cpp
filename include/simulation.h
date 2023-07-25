@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL.h>
+#include <vector>
 #include "wall.h"
+#include "resource.h"
 
 class Simulation
 {
@@ -16,6 +18,7 @@ public:
 	void draw_rect(int x, int y, int w, int h, SDL_Colour colour);
 	void draw_rect(SDL_Rect rect, SDL_Colour colour);
 	void draw_walls(Wall walls[]);
+	int get_random_pos(int lower, int upper);
 
 private:
 	int _height;
@@ -29,4 +32,8 @@ private:
 	const SDL_Colour GREY = { .r = 100, .g = 100, .b = 100 };
 	const SDL_Colour BLACK = { .r = 0, .g = 0, .b = 0 };
 	const SDL_Colour WHITE = { .r = 255, .g = 255, .b = 255 };
+	int rectSize = 10;
+	std::vector<Resource> resources;
 };
+
+
