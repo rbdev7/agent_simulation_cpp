@@ -21,7 +21,12 @@ endif(SDL2_FOUND)
 include_directories(include)
 
 # Add source to this project's executable.
-add_executable (agent_simulation "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp")
+# If the OS is Windows use WIN32 to disable a console window being displayed.
+if(WIN32)
+	add_executable (agent_simulation WIN32 "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp")
+else()
+	add_executable (agent_simulation "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp")
+endif()
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET agent_simulation PROPERTY CXX_STANDARD 20)
