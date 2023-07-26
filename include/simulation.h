@@ -22,10 +22,10 @@ public:
 	int get_random_pos(int lower, int upper);
 
 private:
-	int _height;
-	int _width;
-	SDL_Window* _window = nullptr;
-	SDL_Renderer* _renderer = nullptr;
+	int m_height;
+	int m_width;
+	SDL_Window* m_window = nullptr;
+	SDL_Renderer* m_renderer = nullptr;
 	const SDL_Colour RED = { .r = 255, .g = 0, .b = 0 };
 	const SDL_Colour YELLOW = { .r = 255, .g = 255, .b = 0 };
 	const SDL_Colour BLUE = { .r = 0, .g = 0, .b = 255 };
@@ -33,12 +33,16 @@ private:
 	const SDL_Colour GREY = { .r = 100, .g = 100, .b = 100 };
 	const SDL_Colour BLACK = { .r = 0, .g = 0, .b = 0 };
 	const SDL_Colour WHITE = { .r = 255, .g = 255, .b = 255 };
-	int rectSize = 10;
-	int maxAgents = 10;
-	int agentSpeed = 1;
-	float agentForce = 0.4;
-	std::vector<Resource> resources;
-	std::vector<Agent> agents;
+	const int FPS = 60;
+	const int FRAME_DELAY = 1000 / FPS;
+	Uint32 m_frameStart;
+	int m_frameTime;
+	int m_rectSize = 10;
+	int m_maxAgents = 10;
+	int m_agentSpeed = 1;
+	float m_agentForce = 0.4;
+	std::vector<Resource> m_resources;
+	std::vector<Agent> m_agents;
 };
 
 
