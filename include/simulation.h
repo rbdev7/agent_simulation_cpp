@@ -3,7 +3,7 @@
 #include <vector>
 #include "wall.h"
 #include "resource.h"
-#include <agent.h>
+#include "agent.h"
 
 class Simulation
 {
@@ -15,23 +15,6 @@ public:
 	void Run();
 
 	void clear();
-
-	void draw_rect(int x, int y, int w, int h, SDL_Colour colour);
-	void draw_rect(SDL_Rect rect, SDL_Colour colour);
-	void draw_walls();
-	void draw_agents();
-	void draw_resources();
-	int get_random_pos(int lower, int upper);
-
-	void createWalls();
-
-	void createAgents();
-
-	void handelEvents();
-
-	void update();
-
-	void render();
 
 private:
 	int m_height;
@@ -57,6 +40,18 @@ private:
 	std::vector<Wall> m_walls;
 	std::vector<Resource> m_resources;
 	std::vector<Agent> m_agents;
+
+	void draw_rect(int x, int y, int w, int h, SDL_Colour colour);
+	void draw_rect(SDL_Rect rect, SDL_Colour colour);
+	void draw_walls();
+	void draw_agents();
+	void draw_resources();
+	int get_random_pos(int lower, int upper);
+	void createWalls();
+	void createAgents();
+	void handelEvents();
+	void update();
+	void render();
 };
 
 
