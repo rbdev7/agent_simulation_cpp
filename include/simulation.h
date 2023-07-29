@@ -18,12 +18,25 @@ public:
 
 	void draw_rect(int x, int y, int w, int h, SDL_Colour colour);
 	void draw_rect(SDL_Rect rect, SDL_Colour colour);
-	void draw_walls(Wall walls[]);
+	void draw_walls();
+	void draw_agents();
+	void draw_resources();
 	int get_random_pos(int lower, int upper);
+
+	void createWalls();
+
+	void createAgents();
+
+	void handelEvents();
+
+	void update();
+
+	void render();
 
 private:
 	int m_height;
 	int m_width;
+	bool mIsRunning = false;
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;
 	const SDL_Colour RED = { .r = 255, .g = 0, .b = 0 };
@@ -41,6 +54,7 @@ private:
 	int m_maxAgents = 10;
 	int m_agentSpeed = 1;
 	float m_agentForce = 0.4;
+	std::vector<Wall> m_walls;
 	std::vector<Resource> m_resources;
 	std::vector<Agent> m_agents;
 };

@@ -14,10 +14,9 @@ Simulation::Simulation(int width, int height) : m_height(height), m_width(width)
 	SDL_RenderClear(m_renderer);
 	SDL_RenderPresent(m_renderer);
 
-	for (int i = 0; i < 10; i++)
-	{
-		m_agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = m_rectSize, .h = m_rectSize }, YELLOW, m_agentSpeed, m_agentForce, "wander", "grazer",Vec2() = {.x = (float)m_width, .y = (float)m_height}));
-	}
+	createWalls();
+	createAgents();
+	
 }
 
 Simulation::~Simulation()
@@ -57,11 +56,27 @@ void Simulation::draw_rect(SDL_Rect rect, SDL_Colour colour)
 	//SDL_RenderPresent(_renderer);
 }
 
-void Simulation::draw_walls(Wall walls[])
+void Simulation::draw_walls()
 {
-	for (int i = 0; i <= sizeof(walls); i++)
+	for (Wall wall : m_walls)
 	{
-		draw_rect(walls[i].rect, walls[i].colour);
+		draw_rect(wall.rect, wall.colour);
+	}
+}
+
+void Simulation::draw_agents()
+{
+	for (Agent agent : m_agents)
+	{
+		draw_rect(agent.rect, agent.colour);
+	}
+}
+
+void Simulation::draw_resources()
+{
+	for (Resource resource : m_resources)
+	{
+		draw_rect(resource.rect, resource.colour);
 	}
 }
 
@@ -70,54 +85,84 @@ int Simulation::get_random_pos(int lower, int upper)
 	return (std::rand() % upper) + lower;
 }
 
-void Simulation::Run()
+void Simulation::createWalls()
+{
+	m_walls = { Wall(SDL_Rect {.x = 100, .y = 100, .w = 10, .h = 100}, GREY, "wall"),
+		Wall(SDL_Rect {.x = 200, .y = 100, .w = 100, .h = 10}, GREY, "wall"),
+		Wall(SDL_Rect {.x = 540, .y = 100, .w = 10, .h = 100}, GREY, "wall"),
+		Wall(SDL_Rect {.x = 0, .y = 240, .w = 20, .h = 20}, WHITE, "wb") };
+}
+
+void Simulation::createAgents()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		m_agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = m_rectSize, .h = m_rectSize }, YELLOW, m_agentSpeed, m_agentForce, "wander", "grazer", Vec2() = { .x = (float)m_width, .y = (float)m_height }));
+	}
+}
+
+void Simulation::handelEvents()
 {
 	SDL_Event event;
-	SDL_Rect r = { .x = 100, .y = 100, .w=10, .h=100 };
-	//Wall wall(r, GREY, "wall");
-	Wall walls[4] = {Wall(r = {.x = 100, .y = 100, .w = 10, .h = 100}, GREY, "wall"),
-		Wall(r={.x = 200, .y = 100, .w = 100, .h = 10}, GREY, "wall"),
-		Wall(r={.x = 540, .y = 100, .w = 10, .h = 100}, GREY, "wall"),
-		Wall(r={.x = 0, .y = 240, .w = 20, .h = 20}, WHITE, "wb") };
-	
-	while (1)
+
+	SDL_PollEvent(&event);
+
+	if (event.type == SDL_QUIT)
+		mIsRunning = false;
+	if (event.type == SDL_KEYUP)
+	{
+		if (event.key.keysym.sym == SDLK_ESCAPE)
+			mIsRunning = false;
+	}
+}
+
+void Simulation::update()
+{
+	// Agents
+	for (Agent agent : m_agents)
+	{
+		agent.update();
+	}
+
+	// Place resource
+	if (m_resources.size() < 4)
+		m_resources.push_back(Resource(SDL_Rect { .x = get_random_pos(0, m_width - 10), .y = get_random_pos(0, m_height - 10), .w = m_rectSize, .h = m_rectSize }, GREEN));
+}
+
+void Simulation::render()
+{
+	clear();
+
+	// Walls
+	draw_walls();
+
+	// Resources
+	draw_resources();
+
+	// Agents
+	draw_agents();
+
+	SDL_RenderPresent(m_renderer);
+}
+
+void Simulation::Run()
+{
+	mIsRunning = true;
+
+	while (mIsRunning)
 	{
 		m_frameStart = SDL_GetTicks();
 		
+		// Handel events
+		handelEvents();
+
 		//SDL_Delay(100);
-		SDL_PollEvent(&event);
-
-		if (event.type == SDL_QUIT)
-			break;
-		if (event.type == SDL_KEYUP)
-		{
-			if (event.key.keysym.sym == SDLK_ESCAPE)
-				break;
-		}
 		
-		clear();
+		//Update
+		update();
 
-		// Agents
-		for (Agent agent : m_agents)
-		{
-			agent.update();
-			draw_rect(agent.rect.x, agent.rect.y, agent.rect.w, agent.rect.h, agent.colour);
-		}
-		
-		draw_rect(10, 10, 50, 50, RED);
-		//draw_rect(wall.rect, wall.colour);
-		draw_walls(walls);
-
-		// Place resource
-		if (m_resources.size() < 4)
-			m_resources.push_back(Resource(r = { .x = get_random_pos(0, m_width - 10), .y = get_random_pos(0, m_height - 10), .w = m_rectSize, .h = m_rectSize }, GREEN));
-
-		for (Resource res : m_resources)
-		{
-			draw_rect(res.rect.x, res.rect.y, res.rect.w, res.rect.h, res.colour);
-		}
-
-		SDL_RenderPresent(m_renderer);
+		// Render
+		render();
 
 		m_frameTime = SDL_GetTicks() - m_frameStart;
 		if (FRAME_DELAY > m_frameTime)
