@@ -119,7 +119,7 @@ void Simulation::handelEvents()
 void Simulation::update()
 {
 	// Agents
-	for (Agent agent : m_agents)
+	for (Agent& agent : m_agents)
 	{
 		agent.update();
 	}
@@ -156,7 +156,7 @@ void Simulation::Run()
 		// Handel events
 		handelEvents();
 
-		//SDL_Delay(100);
+		
 		
 		//Update
 		update();
@@ -164,6 +164,7 @@ void Simulation::Run()
 		// Render
 		render();
 
+		//SDL_Delay(1000);
 		m_frameTime = SDL_GetTicks() - m_frameStart;
 		if (FRAME_DELAY > m_frameTime)
 		{

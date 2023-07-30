@@ -5,4 +5,5 @@ struct Vec2
 	float y;
 
 	void rotate(float angle, Vec2 center);
+	void normalise();
 };
