@@ -10,7 +10,7 @@ void Vec2::rotate(float angle, Vec2 center)
 	x = ((x - dx) * std::cos(angle)) - ((dy - y) * sin(angle)) + dx;
 	y = dy - ((dy - y) * std::cos(angle)) + ((x - dx) * std::sin(angle));
 
-	normalise();
+	//normalise();
 }
 
 float Vec2::magnitude()
@@ -23,6 +23,15 @@ void Vec2::normalise()
 	float magnitude = sqrt(pow(x,2) + pow(y,2));
 	x = x / magnitude;
 	y = y / magnitude;
+}
+
+Vec2 Vec2::subtract(Vec2 a, Vec2 b)
+{
+	Vec2 toReturn;
+	toReturn.x = a.x - b.x;
+	toReturn.y = a.y - b.y;
+
+	return toReturn;
 }
 
 void Vec2::scale_to_length(float length)

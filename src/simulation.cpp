@@ -95,7 +95,7 @@ void Simulation::createWalls()
 
 void Simulation::createAgents()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		m_agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = m_rectSize, .h = m_rectSize }, YELLOW, m_agentSpeed, m_agentForce, "wander", "grazer", Vec2() = { .x = (float)m_width, .y = (float)m_height }));
 	}
