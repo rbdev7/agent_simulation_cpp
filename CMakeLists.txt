@@ -25,7 +25,7 @@ include_directories(include)
 if(WIN32)
 	add_executable (agent_simulation WIN32 "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp" "include/agent.h" "src/agent.cpp" "include/helper.h" "src/helper.cpp")
 else()
-	add_executable (agent_simulation "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp")
+	add_executable (agent_simulation "src/agent_simulation.cpp" "include/agent_simulation.h" "include/simulation.h" "src/simulation.cpp" "include/wall.h" "src/wall.cpp" "include/resource.h" "src/resource.cpp" "include/agent.h" "src/agent.cpp" "include/helper.h" "src/helper.cpp")
 endif()
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
