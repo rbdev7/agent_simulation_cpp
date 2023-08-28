@@ -4,6 +4,8 @@ struct Vec2
 	float x;
 	float y;
 
+	Vec2() {};
+	Vec2(float a, float b) : x(a), y(b) {};
 	void rotate(float angle, Vec2 center);
 	float magnitude();
 	void normalise();

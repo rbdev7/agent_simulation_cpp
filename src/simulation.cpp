@@ -2,6 +2,7 @@
 #include "simulation.h"
 #include "wall.h"
 #include <iostream>
+#include <ctime>
 
 Simulation::Simulation(int width, int height) : m_height(height), m_width(width)
 {
@@ -97,7 +98,7 @@ void Simulation::createAgents()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		m_agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = m_rectSize, .h = m_rectSize }, YELLOW, m_agentSpeed, m_agentForce, "wander", "grazer", Vec2() = { .x = (float)m_width, .y = (float)m_height }));
+		m_agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = m_rectSize, .h = m_rectSize }, YELLOW, m_agentSpeed, m_agentForce, "wander", "grazer", Vec2((float)m_width, (float)m_height)));
 	}
 }
 
