@@ -20,6 +20,8 @@ private:
 	int m_height;
 	int m_width;
 	bool mIsRunning = false;
+	bool mShowVector = true;
+	int mVectorScale = 25;
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;
 	const SDL_Colour RED = { .r = 255, .g = 0, .b = 0 };
@@ -43,6 +45,7 @@ private:
 
 	void draw_rect(int x, int y, int w, int h, SDL_Colour colour);
 	void draw_rect(SDL_Rect rect, SDL_Colour colour);
+	void draw_line(Vec2 pos, Vec2 end, SDL_Colour colour, int width);
 	void draw_walls();
 	void draw_agents();
 	void draw_resources();

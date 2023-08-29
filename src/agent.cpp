@@ -13,6 +13,7 @@ Agent::Agent(SDL_Rect r, SDL_Colour c, int speed, float force, std::string state
 
 	// TODO: Set initial velocity to 0 and remove random direction.
 	velocity = Vec2(0, 0);
+	desired = Vec2(0, 0);
 	pos.x = r.x;
 	pos.y = r.y;
 
@@ -41,7 +42,7 @@ void Agent::seek(Vec2 target)
 	//location.x = rect.x;
 	//location.y = rect.y;
 
-	Vec2 desired = Vec2().subtract(target, pos);
+	desired = Vec2().subtract(target, pos);
 	desired.normalise();
 	desired.x = desired.x * speed;
 	desired.y = desired.y * speed;

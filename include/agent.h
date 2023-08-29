@@ -17,6 +17,7 @@ public:
 	Vec2 bounds;
 	Vec2 center;
 	Vec2 pos;
+	Vec2 desired;
 
 	const int WANDER_CIRCLE_DIST = 150;
 	const int WANDER_CIRCLE_RADIUS = 50;

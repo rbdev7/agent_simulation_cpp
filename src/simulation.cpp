@@ -57,6 +57,17 @@ void Simulation::draw_rect(SDL_Rect rect, SDL_Colour colour)
 	//SDL_RenderPresent(_renderer);
 }
 
+void Simulation::draw_line(Vec2 pos, Vec2 end, SDL_Colour colour, int width)
+{
+	SDL_SetRenderDrawColor(m_renderer, colour.r, colour.g, colour.b, colour.a);
+	
+	// SDL_RenderDrawLine does not have a width parameter.
+	// To make the line thicker, draw more than one line with an offset.
+	for (int offset = 0; offset <= width-1; offset++)
+		SDL_RenderDrawLineF(m_renderer, pos.x+offset, pos.y+offset, end.x+offset, end.y+offset);
+	
+}
+
 void Simulation::draw_walls()
 {
 	for (Wall wall : m_walls)
@@ -70,6 +81,16 @@ void Simulation::draw_agents()
 	for (Agent agent : m_agents)
 	{
 		draw_rect(agent.rect, agent.colour);
+		if (mShowVector)
+		{
+			Vec2 currentV(agent.pos.x + agent.velocity.x * mVectorScale, agent.pos.y + agent.velocity.y * mVectorScale);
+			Vec2 currentD(agent.pos.x + agent.desired.x * mVectorScale, agent.pos.y + agent.desired.y * mVectorScale);
+			
+			// Current vector
+			draw_line(agent.center, currentV, GREEN, 2);
+			// Desired vector
+			draw_line(agent.center, currentD, RED, 2);
+		}
 	}
 }
 
@@ -96,7 +117,7 @@ void Simulation::createWalls()
 
 void Simulation::createAgents()
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < m_maxAgents; i++)
 	{
 		m_agents.push_back(Agent(SDL_Rect() = { .x = 320, .y = 240, .w = m_rectSize, .h = m_rectSize }, YELLOW, m_agentSpeed, m_agentForce, "wander", "grazer", Vec2((float)m_width, (float)m_height)));
 	}
@@ -114,6 +135,8 @@ void Simulation::handelEvents()
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 			mIsRunning = false;
+		if (event.key.keysym.sym == SDLK_v)
+			mShowVector = !mShowVector;
 	}
 }
 
