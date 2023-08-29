@@ -70,6 +70,12 @@ void Agent::wander()
 	target.x = future.x + rndVec.x;
 	target.y = future.y + rndVec.y;
 
+	// Cap the vector to the bounds of the screen.
+	if (target.x > 640)
+		target.x = target.x - 640;
+	if (target.y > 480)
+		target.y = target.y - 480;
+
 	seek(target);
 }
 
