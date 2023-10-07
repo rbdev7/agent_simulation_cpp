@@ -75,4 +75,5 @@ jobs:
       shell: bash
       run: |
         ls
-        cmake --build --preset /CMakePresets.json
+        pwd
+        #cmake --build --preset /CMakePresets.json
