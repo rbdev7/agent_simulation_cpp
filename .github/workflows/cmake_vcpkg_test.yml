@@ -57,6 +57,9 @@ jobs:
     - name: Install vcpkg
       shell: bash
       run: |
-        if [ ! -d ~/vcpkg ]; then \
+        if [ ! -d ~/vcpkg ]; then
           git clone https://github.com/microsoft/vcpkg.git ~/vcpkg
         fi
+        sudo ~/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+        sudo ln -s ~/vcpkg/vcpkg /usr/local/bin/vcpkg
+        export VCPKG_ROOT=~/vcpkg
