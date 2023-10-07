@@ -75,5 +75,4 @@ jobs:
       shell: bash
       run: |
         ls
-        ls ../
-        #cmake --build --preset ${{ github.workspace }}/CMakePresets.json
+        cmake --build --preset /CMakePresets.json
