@@ -74,4 +74,6 @@ jobs:
     - name: Build
       shell: bash
       run: |
-        cmake --build --preset ${{ github.workspace }}/CMakePresets.json
+        ls
+        ls ../
+        #cmake --build --preset ${{ github.workspace }}/CMakePresets.json
