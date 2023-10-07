@@ -56,6 +56,7 @@ jobs:
 
     - name: Install vcpkg
       shell: bash
+      if: runner.os == 'ubuntu-latest'
       run: |
         if [ ! -d ~/vcpkg ]; then
           git clone https://github.com/microsoft/vcpkg.git ~/vcpkg
