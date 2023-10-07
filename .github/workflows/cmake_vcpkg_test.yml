@@ -77,4 +77,4 @@ jobs:
         ls
         pwd
         cmake
-        #cmake --build --preset ../CMakePresets.json
+        #cmake --build --preset x64-release
